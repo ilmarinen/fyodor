@@ -15,3 +15,5 @@ You can interact with Fyodor on Discord by mentioning them and sending them a co
 1. Ask for a list of available news sources: `@Fyodor list sources`
 2. Ask for the headlines from a particular source: `@Fyodor headlines <source-name>`
 3. Ask for the headlines from all sources: `@Fyodor headlines all`
+4. Ask for a translation of the headlines from a source: `@Fyodor translate <source-name>` (Currently only certain sources support translation)
+5. Ask for a translation of the headlines from all sources: `@Fyodor translate all` (Currently only certain sources support translation)
