@@ -7,6 +7,8 @@ from bs4 import BeautifulSoup
 
 class WikipediaScraper(object):
 
+    name = "Wikipedia"
+
     def __init__(self):
         self.url = "https://en.wikipedia.org/wiki/Portal:Current_events"
 
@@ -42,6 +44,8 @@ class WikipediaScraper(object):
 
 
 class CNBCScraper(object):
+
+    name = "CNBC"
 
     def __init__(self):
         self.url = "https://www.cnbc.com/"

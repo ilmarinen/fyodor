@@ -7,3 +7,11 @@
 3. Then set two environment variables `TOKEN` and `CLIENT_ID` to be the values of your token and client id.
 4. Run the command: `fyodor discord-bot`
 5. Alternately on Linux you can run: `CLIENT_ID=<your-client-id> TOKEN=<your-token> fyodor discord-bot`
+
+## Discord
+
+You can interact with Fyodor on Discord by mentioning them and sending them a command.
+
+1. Ask for a list of available news sources: `@Fyodor list sources`
+2. Ask for the headlines from a particular source: `@Fyodor headlines <source-name>`
+3. Ask for the headlines from all sources: `@Fyodor headlines all`
