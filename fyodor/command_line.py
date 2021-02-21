@@ -30,11 +30,18 @@ def scrape(url):
     This command perturbes the detected genders of persons in the sentence.
     Changing male persons to female, and female persons to male.
     """
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, "html.parser")
-    divs = soup.select("div")
+    # response = requests.get(url)
+    # soup = BeautifulSoup(response.text, "html.parser")
+    # divs = soup.select("div")
 
-    print(divs)
+    # print(divs)
+
+    from fyodor.scrapers import VzgalyadScraper
+
+    scraper = VzgalyadScraper()
+    headlines = scraper.get_headlines(translate_to_en=True)
+    for headline in headlines:
+        print(headline)
 
 
 def main():

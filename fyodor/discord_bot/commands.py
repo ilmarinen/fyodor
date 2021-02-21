@@ -3,8 +3,8 @@ import discord
 from fyodor import scrapers
 
 
-def get_batched_headlines(source, batch_size):
-    headlines = source.get_headlines()
+def get_batched_headlines(source, batch_size, translate_to_en=False):
+    headlines = source.get_headlines(translate_to_en=translate_to_en)
     if len(headlines) > 0:
         embeds = []
         if len(headlines) < 5:
@@ -31,6 +31,8 @@ class Dispatcher(object):
         self.news_sources = dict()
         self.news_sources["wikipedia"] = scrapers.WikipediaScraper()
         self.news_sources["cnbc"] = scrapers.CNBCScraper()
+        self.news_sources["ekantipur"] = scrapers.EkantipurScraper()
+        self.news_sources["vz"] = scrapers.VzgalyadScraper()
 
     def process_any_commands(self, message, command_text):
         command_words = list(filter(lambda word: len(word) > 0, command_text.strip().split(" ")))
@@ -51,12 +53,6 @@ class Dispatcher(object):
 
             return embeds
 
-        elif command_string == "list" and command_parameters[0] == "sources":
-            news_sources_string = "\n\n".join(self.news_sources.keys())
-            embed = discord.Embed(title=f"Available News Sources", description=news_sources_string)
-
-            return [embed]
-
         elif command_string == "headlines" and command_parameters[0] == "all":
             embeds = []
             for _, source in self.news_sources.items():
@@ -64,5 +60,27 @@ class Dispatcher(object):
                 embeds = embeds + source_embeds
 
             return embeds
+
+        if command_string == "translate" and command_parameters[0] not in ["list", "all"]:
+            source_name = command_parameters[0].lower()
+            source = self.news_sources[source_name]
+            embeds = get_batched_headlines(source, 5, translate_to_en=True)
+
+            return embeds
+
+        elif command_string == "translate" and command_parameters[0] == "all":
+            embeds = []
+            for _, source in self.news_sources.items():
+                source_embeds = get_batched_headlines(source, 5, translate_to_en=True)
+                embeds = embeds + source_embeds
+
+            return embeds
+
+        elif command_string == "list" and command_parameters[0] == "sources":
+            news_sources_string = "\n\n".join(self.news_sources.keys())
+            embed = discord.Embed(title=f"Available News Sources", description=news_sources_string)
+
+            return [embed]
+
 
         return []
